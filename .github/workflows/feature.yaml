@@ -5,7 +5,7 @@ on:
     branches:
       - "feature"
 env:
-  GCP_REGISTRY:"asia-southeast1-docker.pkg.dev/charged-kiln-460511-p8/ntx-devops-test"
+  GCP_REGISTRY: "asia-southeast1-docker.pkg.dev/charged-kiln-460511-p8/ntx-devops-test"
 jobs:  
   build:
     runs-on: ubuntu-latest
