@@ -21,4 +21,9 @@ jobs:
           docker build -t $GCP_REGISTRY:$APP_TAG .
       - name: Check Docker Image
         run: |
-          docker images 
+          docker images
+      - name: "Artifact Registry auth"
+        run: gcloud auth configure-docker asia-southeast1-docker.pkg.dev
+      - name: Publish to GCR
+        run: |
+          docker push "$GCP_REGISTRY:$APP_TAG"
