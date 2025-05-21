@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - "feature"
+env:
+  GCP_REGISTRY:"asia-southeast1-docker.pkg.dev/charged-kiln-460511-p8/ntx-devops-test"
 jobs:  
   build:
     runs-on: ubuntu-latest
@@ -15,7 +17,7 @@ jobs:
           credentials_json: "${{ secrets.GCP_CICD_SA }}"
       - name: Build Docker Image
         run: |
-          docker build -t ${{ secrets.GCP_REGISTRY }}:$GITHUB_REF .
+          docker build -t $GCP_REGISTRY:$GITHUB_REF .
       - name: Check Docker Image
         run: |
           docker images 
