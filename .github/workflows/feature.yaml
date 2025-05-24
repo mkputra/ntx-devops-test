@@ -11,7 +11,7 @@ jobs:
   terraformGCP:
     name: terraform GCP
     runs-on: ubuntu-latest
-    
+
     steps:
     # Checkout the repository to the GitHub Actions runner
     - name: Checkout
@@ -37,7 +37,7 @@ jobs:
       run: |-
         cat > pipeline.auto.tfvars <<EOF
         region="${{ vars.GCP_REGION }}"
-        project="${{ vars.GCP_PROJECT_ID }}"
+        project_id="${{ vars.GCP_PROJECT_ID }}"
         repo_id="${{ vars.GCP_REPO_ID }}"
         repo_format="${{ vars.GCP_REPO_FORMAT }}"
         image_name="ntx-app"
@@ -52,7 +52,7 @@ jobs:
         terraform apply -auto-approve \
           -var="project_id=${{ secrets.NTX_GCP_PROJECT_ID }}" \
           -var="region=$GCP_REGION" \
-          -var="repo_name=$GCP_REPO_NAME"
+          -var="repo_id=$GCP_REPO_ID"
   
   build:
     runs-on: ubuntu-latest
