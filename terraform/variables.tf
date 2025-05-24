@@ -1,35 +1,34 @@
 variable "project_id" {
-    type= string
+    type        = string
     description = "ID Google project"
-    default = "ntx-devops"
 }
 
 variable "region" {
-    type= string
+    type        = string
     description = "Region Google project"
-    default = "asia-southeast1"
+    default     = "asia-southeast1"
 }
 
 variable "repo_id" {
-    type = string
+    type        = string
     description = "repository name"
-    default = "ntx-repo"
+    default     = "ntx-repo"
 }
 
 variable "repo_format" {
-    type = string
+    type        = string
     description = "docker registry"
-    default = "DOCKER"
+    default     = "DOCKER"
 }
 
 variable "image_name" {
-    type = string
+    type        = string
     description = "image name"
-    default = "ntx-image"
+    default     = "ntx-image"
 }
 
 variable "image_tag" {
-    type = string
+    type        = string
     description = "image tag"
-    default = "latest"
+    default     = "latest"
 }
