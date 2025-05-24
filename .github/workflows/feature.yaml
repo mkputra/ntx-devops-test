@@ -62,10 +62,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - id: "auth"
-        uses: "google-github-actions/auth@v1"
+
+      - name: auth
+        uses: google-github-actions/auth@v1
         with:
-          credentials_json: "${{ secrets.NTX_GCP_SA }}"
+          credentials_json: '${{ secrets.NTX_GCP_SA }}'
+      #set up gcp
+      - name: set up gcp sdk
+        uses: google-github-actions/setup-gcloud@v1
+        with:
+          project_id: ${{ secrets.NTX_GCP_PROJECT_ID }}
+
       - name: Build Docker Image
         run: |
           docker build -t $GCP_REGISTRY:$APP_TAG .
