@@ -11,11 +11,7 @@ jobs:
   terraformGCP:
     name: terraform GCP
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        shell: bash
-        #Inform a working directory if .tf files are not in root folder
-        working-directory: ./terraform 
+    
     steps:
     # Checkout the repository to the GitHub Actions runner
     - name: Checkout
