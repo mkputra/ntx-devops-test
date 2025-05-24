@@ -7,6 +7,9 @@ on:
 env:
   APP_TAG: ${{ github.run_id }}
   GCP_REGISTRY: "asia-southeast1-docker.pkg.dev/charged-kiln-460511-p8/ntx-devops-test"
+  GCP_REGION: ${{ vars.GCP_REGION }}
+  GCP_REPO_NAME: ${{ vars.GCP_REPO_ID }}
+
 jobs:
   terraformGCP:
     name: terraform GCP
@@ -40,8 +43,8 @@ jobs:
         terraform init --upgrade
         terraform apply -auto-approve \
           -var="project_id=${{ secrets.NTX_GCP_PROJECT_ID }}" \
-          -var="${{ vars.GCP_REGION }}" \
-          -var="${{ vars.GCP_REPO_ID }}"
+          -var="region=$GCP_REGION" \
+          -var="repo_id=$GCP_REPO_ID"
   
   build:
     runs-on: ubuntu-latest
