@@ -8,8 +8,8 @@ env:
   APP_TAG: ${{ github.run_id }}
   GCP_REGISTRY: "asia-southeast1-docker.pkg.dev/charged-kiln-460511-p8/ntx-devops-test"
 jobs:
-  terraform:
-    name: 'Terraform'
+  terraformGCP:
+    name: terraform GCP
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -19,11 +19,22 @@ jobs:
     steps:
     # Checkout the repository to the GitHub Actions runner
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
+    #authentication
+    - name: auth to gcp
+      uses: google-github-actions/auth@v1
+      with:
+        credentials_json: '${{ secrets.NTX_GCP_SA }}'
+
+      #set up gcp
+    - name: set up gcp sdk
+      uses: google-github-actions/setup-gcloud@v1
+      with:
+        project_id: ${{ secrets.NTX_GCP_PROJECT_ID }}
 
     # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
     - name: Setup Terraform
-      uses: hashicorp/setup-terraform@v1
+      uses: hashicorp/setup-terraform@v2
 
     - name: Setup terraform variables
       id: vars
@@ -39,24 +50,13 @@ jobs:
         
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Init
-      run: terraform init
-      env:
-        GOOGLE_CREDENTIALS: ${{ secrets.NTX_GCP_SA }} 
-
-
-    # Generates an execution plan for Terraform
-    - name: Terraform Plan
-      run: terraform plan -input=false
-      env:
-        GOOGLE_CREDENTIALS: ${{ secrets.NTX_GCP_SA }}
-
-      # On push to "feature", build or change infrastructure according to Terraform configuration files
-      # Note: It is recommended to set up a required "strict" status check in your repository for "Terraform Cloud". See the documentation on "strict" required status checks for more information: https://help.github.com/en/github/administering-a-repository/types-of-required-status-checks
-    - name: Terraform Apply
-      if: github.ref == 'refs/heads/feature' && github.event_name == 'push'
-      run: terraform apply -auto-approve -input=false
-      env:
-        GOOGLE_CREDENTIALS: ${{ secrets.NTX_GCP_SA }}
+      run: |
+        cd terraform
+        terraform init --upgrade
+        terraform apply -auto-approve \
+          -var="project_id=${{ secrets.NTX_GCP_PROJECT_ID }}" \
+          -var="region=$GCP_REGION" \
+          -var="repo_name=$GCP_REPO_NAME"
   
   build:
     runs-on: ubuntu-latest
