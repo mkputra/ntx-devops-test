@@ -24,7 +24,7 @@ variable "repo_format" {
 variable "image_name" {
     type        = string
     description = "image name"
-    default     = "ntx-image"
+    default     = "ntx-image-app"
 }
 
 variable "image_tag" {
