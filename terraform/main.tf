@@ -1,7 +1,7 @@
 terraform {
     backend "gcs" { 
-      bucket  = "ntx-gcp-tf-state-bucket"
-      prefix  = "state"
+      bucket  = "ntx-gcp-terraform-state"
+      prefix  = "feature"
     }
 }
 
