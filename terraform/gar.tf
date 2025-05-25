@@ -7,5 +7,5 @@ resource "google_artifact_registry_repository" "ntx-repo" {
 data "google_artifact_registry_docker_image" "ntx-image" {
   location      = google_artifact_registry_repository.ntx-repo.location
   repository_id = google_artifact_registry_repository.ntx-repo.repository_id
-  image_name    = "var.image_name:var.image_tag"
+  image_name    = "${var.image_name}:${var.image_tag}"
 }
