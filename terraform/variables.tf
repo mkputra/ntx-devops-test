@@ -6,11 +6,11 @@ variable "project_id" {
 variable "region" {
   description = "GCP Region (e.g. us-central1)"
   type        = string
-  default     = "asia-southeast2"
+  default     = "asia-southeast1"
 }
 
 variable "repo_name" {
   description = "Name of the Artifact Registry Docker repo"
   type        = string
-  default     = "app-repo"
+  default     = "ntx-repo"
 }
