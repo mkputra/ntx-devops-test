@@ -65,7 +65,7 @@ jobs:
         
       - name: Build Docker Image
         run: |
-          IMAGE_URL=$GCP_REGION-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/$GCP_REPO_NAME/$DOCKER_IMAGE_NAME:latest
+          IMAGE_URL=$GCP_REGION-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/$REPO_NAME/$DOCKER_IMAGE_NAME:latest
           docker build -t $IMAGE_URL .
 
       - name: Check Docker Image
