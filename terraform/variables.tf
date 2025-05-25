@@ -1,34 +1,16 @@
 variable "project_id" {
-    type        = string
-    description = "ID Google project"
+  description = "GCP Project ID"
+  type        = string
 }
 
 variable "region" {
-    type        = string
-    description = "Region Google project"
-    default     = "asia-southeast1"
+  description = "GCP Region (e.g. us-central1)"
+  type        = string
+  default     = "asia-southeast2"
 }
 
-variable "repo_id" {
-    type        = string
-    description = "repository name"
-    default     = "ntx-repo"
-}
-
-variable "repo_format" {
-    type        = string
-    description = "docker registry"
-    default     = "DOCKER"
-}
-
-variable "image_name" {
-    type        = string
-    description = "image name"
-    default     = "ntx-image-app"
-}
-
-variable "image_tag" {
-    type        = string
-    description = "image tag"
-    default     = "latest"
+variable "repo_name" {
+  description = "Name of the Artifact Registry Docker repo"
+  type        = string
+  default     = "app-repo"
 }
