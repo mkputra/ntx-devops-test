@@ -5,6 +5,7 @@ on:
     branches:
       - "feature"
 env:
+  GCP_REGION: ${{ vars.GCP_REGION }}
   DOCKER_IMAGE_NAME: ntx-img-app
   REPO_NAME: ntx-app-repo
 
@@ -64,9 +65,9 @@ jobs:
         
       - name: Build Docker Image
         run: |
-          IMAGE_URL=${{ vars.GCP_REGION }}-docker.pkg.dev/${{ secrets.NTX_GCP_PROJECT_ID }}/$GCP_REPO_NAME/$DOCKER_IMAGE_NAME:latest
+          IMAGE_URL=$GCP_REGION-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/$GCP_REPO_NAME/$DOCKER_IMAGE_NAME:latest
           docker build -t $IMAGE_URL .
-          docker push $IMAGE_URL
+
       - name: Check Docker Image
         run: |
           docker images
