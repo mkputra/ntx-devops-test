@@ -7,7 +7,7 @@ on:
 env:
   GCP_REGION: ${{ vars.GCP_REGION }}
   DOCKER_IMAGE_NAME: ntx-img-app
-  REPO_NAME: ntx-app-repo
+  REPO_NAME: ntx-repo
 
 jobs:
   terraformGCP:
