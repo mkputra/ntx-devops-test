@@ -63,15 +63,9 @@ jobs:
       - name: "Artifact Registry auth"
         run: gcloud auth configure-docker ${{ vars.GCP_REGION }}-docker.pkg.dev
         
-      - name: Build Docker Image
+      - name: Build Docker Image, check image, and push to GCR
         run: |
           IMAGE_URL=$GCP_REGION-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/$REPO_NAME/$DOCKER_IMAGE_NAME:latest
           docker build -t $IMAGE_URL .
-
-      - name: Check Docker Image
-        run: |
           docker images
-
-      - name: Publish to GCR
-        run: |
           docker push $IMAGE_URL
