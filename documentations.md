@@ -13,17 +13,25 @@ there are a few things that need to be configured before creating the CI Workflo
 2. Google cloud storage bucket for storing the terraform state
 3. enabling the artifact registry API and gke API
 4. forking the lab repo.
+5. create dockerfile of the app.
 
 # workflow
 the workflow that i am creating consist of 3 jobs: infra, build and deploy. the workflow will be triggered when feature branch is pushed.
 
-1. the infra job will provision GCP infra with terraform, the resources used on this terraform deployment are artifact registry for the docker repo and gke autopilot cluster, the terraform state are stored in the google cloud storage bucked that was created earlier. the output will provides the full Docker image path that will be used in the CI pipeline.
+1. the infra job will provision GCP infra with terraform, the resources used on this terraform deployment are artifact registry for the docker repo and gke autopilot cluster, the terraform state are stored in the google cloud storage bucket that was created earlier. the output will provides the full Docker image path that will be used in the CI pipeline.
 
 2. the build job will build the docker image for the application pushes it to the google artifact registry.
 
 3. the deploy job will deploy the docker image that was created to the GKE cluster using the kubernetes manifests.
 
 when all the jobs run properly,this workflow will automates the infrastructure provisioning, container image build and push, and application deployment to GKE. 
+
+# Terraform
+the terraform configuration will create:
+1. storing the terraform state on GCS
+2. google artifact registry for the docker repo
+3. GKE autopilot kubernetes cluster for deployment 
+4. creating output for the docker artifact registry URL and the gke cluster name.
 
 # k8s
 1. the k8s deployment.yaml will manage the gke cluster with the app dockerfile image running inside, exposed on port 3000.
